@@ -1,0 +1,30 @@
+/**
+ * StatCard Component Styles
+ */
+
+.stat-card {
+  background-color: var(--color-gray-50);
+  padding: 1rem;
+  border-radius: 0.5rem;
+
+  &__label {
+    font-size: 0.875rem; // 14px
+    color: var(--color-gray-600);
+    margin: 0 0 0.25rem 0;
+  }
+
+  &__value {
+    font-size: 1.5rem; // 24px
+    font-weight: 700;
+    color: var(--color-gray-900);
+    margin: 0;
+    
+    // Allow React nodes to style themselves
+    > * {
+      font-size: inherit;
+      font-weight: inherit;
+      color: inherit;
+    }
+  }
+}
+

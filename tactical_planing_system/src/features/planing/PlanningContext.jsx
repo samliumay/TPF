@@ -10,8 +10,9 @@
  * - IL (Importance Level): Priority score (1-4)
  */
 
-import { createContext, useContext, useState, useCallback } from 'react';
+import { createContext, useContext, useState, useCallback, useEffect, useRef } from 'react';
 import { IMPORTANCE } from '../../config/constants';
+import exampleTasks from '../../examples/exampleTasks.json';
 
 const PlanningContext = createContext(null);
 
@@ -34,6 +35,55 @@ export function PlanningProvider({ children }) {
   // State: Available free time in hours (default 8 hours)
   // Used for Realism Point (RP) calculation: RP = Total RT / Available Time
   const [availableTime, setAvailableTime] = useState(8);
+
+  // Track if example data has been initialized
+  const initializedRef = useRef(false);
+
+  // Initialize with example data (for development/testing)
+  useEffect(() => {
+    // Only initialize once on mount
+    if (!initializedRef.current) {
+      const today = new Date();
+      today.setHours(0, 0, 0, 0);
+      
+      // Convert example tasks from JSON format to proper format
+      // Adjust dates to be relative to today so tasks appear in the dashboard
+      const formattedTasks = exampleTasks.map((task, index) => {
+        // Parse the original date from JSON
+        const originalDate = new Date(task.idl);
+        const originalCreatedAt = new Date(task.createdAt);
+        
+        // Calculate days offset from the original date (Dec 18, 2024)
+        // We'll distribute tasks across today, tomorrow, and a few days ahead
+        const baseDate = new Date('2024-12-18T00:00:00.000Z');
+        const daysOffset = Math.floor((originalDate.getTime() - baseDate.getTime()) / (1000 * 60 * 60 * 24));
+        
+        // Create new dates relative to today
+        const newIdl = new Date(today);
+        newIdl.setDate(today.getDate() + daysOffset);
+        newIdl.setHours(originalDate.getHours(), originalDate.getMinutes(), 0, 0);
+        
+        const newCreatedAt = new Date(today);
+        newCreatedAt.setDate(today.getDate() - 7 + (index % 7)); // Created dates spread over past week
+        
+        return {
+          ...task,
+          idl: newIdl, // Date relative to today
+          createdAt: newCreatedAt, // Created date in past week
+          rt: parseFloat(task.rt), // Ensure RT is a float
+          il: parseInt(task.il), // Ensure IL is an integer
+          parentTaskId: task.parentTaskId || null,
+          subtasks: task.subtasks || [],
+          linksTo: task.linksTo || [],
+          linkedFrom: task.linkedFrom || [],
+          completed: task.completed || false, // Task completion status
+          completedAt: task.completedAt ? new Date(task.completedAt) : null, // Completion date
+        };
+      });
+      setTasks(formattedTasks);
+      initializedRef.current = true;
+    }
+  }, []); // Empty dependency array - only run once on mount
 
   /**
    * Add a new task to the system
@@ -58,6 +108,8 @@ export function PlanningProvider({ children }) {
       subtasks: [], // Array of subtask IDs
       linksTo: [], // Array of task IDs this task links to (directional)
       linkedFrom: [], // Array of task IDs that link to this task
+      completed: false, // Task completion status
+      completedAt: null, // Date when task was completed
     };
     setTasks((prev) => {
       const updated = [...prev, newTask];
@@ -101,6 +153,60 @@ export function PlanningProvider({ children }) {
           : task
       )
     );
+  }, []);
+
+  /**
+   * Toggle task completion status
+   * 
+   * @param {number} taskId - ID of the task to toggle
+   * 
+   * When marking a task as completed, also marks all subtasks as completed.
+   * When unmarking, does not affect subtasks (user can unmark individually).
+   */
+  const toggleTaskCompletion = useCallback((taskId) => {
+    setTasks((prev) => {
+      const task = prev.find(t => t.id === taskId);
+      if (!task) return prev;
+
+      const newCompleted = !task.completed;
+      const completionDate = newCompleted ? new Date() : null;
+
+      // Helper to recursively get all descendant task IDs
+      const getDescendantIds = (parentId, allTasks) => {
+        const descendants = [];
+        const directChildren = allTasks.filter(t => t.parentTaskId === parentId);
+        directChildren.forEach(child => {
+          descendants.push(child.id);
+          descendants.push(...getDescendantIds(child.id, allTasks));
+        });
+        return descendants;
+      };
+
+      return prev.map((t) => {
+        // Update the clicked task
+        if (t.id === taskId) {
+          return {
+            ...t,
+            completed: newCompleted,
+            completedAt: completionDate,
+          };
+        }
+        
+        // If marking as completed, also mark all subtasks
+        if (newCompleted) {
+          const descendantIds = getDescendantIds(taskId, prev);
+          if (descendantIds.includes(t.id)) {
+            return {
+              ...t,
+              completed: true,
+              completedAt: completionDate,
+            };
+          }
+        }
+        
+        return t;
+      });
+    });
   }, []);
 
   /**
@@ -312,6 +418,7 @@ export function PlanningProvider({ children }) {
     addTask, // Function to add new task
     updateTask, // Function to update existing task
     deleteTask, // Function to delete task
+    toggleTaskCompletion, // Function to toggle task completion
     catastrophicWipeOut, // Function to execute CWA
     getTasksForDate, // Function to filter tasks by date
     getTodayTasks, // Function to get today's tasks

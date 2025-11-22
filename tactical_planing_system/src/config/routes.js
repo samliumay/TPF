@@ -17,14 +17,39 @@ export const ROUTES = {
     HOME: '/',
     DASHBOARD: '/dashboard',
     
-    // Diamond System routes
-    DIAMOND_VIEW: '/diamond-system',
-    ENTITY_DETAIL: (id) => `/diamond-system/entity/${id}`, // Dynamic route for entity detail pages
-    
     // Planning routes
-    DAILY_PLAN: '/planning/daily',
-    OBSERVATION_INPUT: '/planning/observations',
+    PLANNING: {
+      ALL_TASKS: '/planning/all-tasks',
+      DAILY_TASKS: '/planning/daily-tasks',
+      ADD_TASK: '/planning/add-task',
+      TASK_TREE: '/planning/task-tree',
+      TASK_CONFIGURATION: '/planning/task-configuration',
+    },
     
-    // Settings route
-    SETTINGS: '/settings',
+    // Observations routes
+    OBSERVATIONS: {
+      CURRENT: '/observations/current',
+      WAITING_FOR_ANALYSIS: '/observations/waiting',
+      ALL: '/observations/all',
+      ANALYSIS: '/observations/analysis',
+    },
+    
+    // Diamond System routes
+    DIAMOND: {
+      DIAGRAM: '/diamond/diagram',
+      ADD_ENTITY: '/diamond/add-entity',
+      ALL_ENTITIES: '/diamond/all-entities',
+    },
+    ENTITY_DETAIL: (id) => `/diamond/entity/${id}`, // Dynamic route for entity detail pages
+    
+    // Settings routes
+    SETTINGS: {
+      COLOR: '/settings/color',
+      EMERGENCY: '/settings/emergency',
+    },
+    
+    // Legacy routes (for backward compatibility)
+    DAILY_PLAN: '/planning/daily-tasks',
+    OBSERVATION_INPUT: '/observations/current',
+    DIAMOND_VIEW: '/diamond/diagram',
   };

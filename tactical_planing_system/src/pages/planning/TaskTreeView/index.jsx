@@ -1,5 +1,5 @@
 /**
- * TaskTreeView - Visual tree diagram showing task relationships
+ * TaskTreeView - Visual tree diagram showing task relationships and dependencies
  * 
  * Displays tasks in a hierarchical tree structure showing:
  * - Parent-child relationships (subtasks)
@@ -12,11 +12,15 @@
  */
 
 import { useState, useMemo } from 'react';
-import { usePlanning } from '../../features/planing/PlanningContext';
-import { getImportanceLabel, getImportanceColor } from '../../config/functions/importanceLevel';
+import { usePlanning } from '../../../features/planing/PlanningContext';
+import { useNavigate } from 'react-router-dom';
+import { ROUTES } from '../../../config/routes';
+import { getImportanceLabel, getImportanceColor } from '../../../config/functions/importanceLevel';
+import './TaskTreeView.scss';
 
-export default function TaskTreeView({ onTaskSelect }) {
+export default function TaskTreeView() {
   const { tasks, getTaskTree, getTaskById } = usePlanning();
+  const navigate = useNavigate();
   const [expandedNodes, setExpandedNodes] = useState(new Set());
   const [selectedTaskId, setSelectedTaskId] = useState(null);
 
@@ -36,9 +40,7 @@ export default function TaskTreeView({ onTaskSelect }) {
 
   const handleTaskClick = (taskId) => {
     setSelectedTaskId(taskId);
-    if (onTaskSelect) {
-      onTaskSelect(getTaskById(taskId));
-    }
+    navigate(ROUTES.PLANNING.ALL_TASKS);
   };
 
 
@@ -119,27 +121,41 @@ export default function TaskTreeView({ onTaskSelect }) {
     );
   };
 
-  if (taskTree.length === 0) {
-    return (
-      <div className="empty-state">
-        <p className="empty-state__title">No tasks yet</p>
-        <p className="empty-state__subtitle">Create your first task to see the tree structure</p>
-      </div>
-    );
-  }
-
   return (
-    <div className="task-tree-view">
-      <div className="mb-4">
-        <h3 className="text-xl font-semibold text--gray-900 mb-2">Task Tree View</h3>
-        <p className="text-sm text--gray-600">
-          Click on tasks to select them. Expand/collapse nodes to view subtasks.
-        </p>
+    <div className="page">
+      <div className="page__header">
+        <h1 className="page__title">Task Tree View</h1>
+        <p className="page__subtitle">Visual tree diagram showing task relationships and dependencies</p>
       </div>
-      <div className="task-tree-view__container">
-        {taskTree.map((rootTask) => (
-          <TreeNode key={rootTask.id} task={rootTask} level={0} />
-        ))}
+
+      <div className="card">
+        {taskTree.length === 0 ? (
+          <div className="empty-state">
+            <p className="empty-state__title">No tasks yet</p>
+            <p className="empty-state__subtitle">Create your first task to see the tree structure</p>
+            <button
+              onClick={() => navigate(ROUTES.PLANNING.ADD_TASK)}
+              className="btn btn--primary mt-4"
+            >
+              Add Task
+            </button>
+          </div>
+        ) : (
+          <>
+            <div className="mb-4">
+              <h3 className="text-xl font-semibold text--gray-900 mb-2">Task Dependencies</h3>
+              <p className="text-sm text--gray-600">
+                Click on tasks to view details. Expand/collapse nodes to view subtasks. 
+                Links (🔗) indicate task relationships.
+              </p>
+            </div>
+            <div className="task-tree-view__container">
+              {taskTree.map((rootTask) => (
+                <TreeNode key={rootTask.id} task={rootTask} level={0} />
+              ))}
+            </div>
+          </>
+        )}
       </div>
     </div>
   );

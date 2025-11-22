@@ -1,0 +1,22 @@
+/**
+ * CurrentObservations Page Styles
+ */
+
+.current-observations {
+  &__catch-form {
+    // OB Catch form styling
+  }
+
+  &__buffer-list {
+    // Buffer list styling
+  }
+
+  &__observation-item {
+    transition: transform 0.2s ease;
+    
+    &:hover {
+      transform: translateY(-2px);
+    }
+  }
+}
+

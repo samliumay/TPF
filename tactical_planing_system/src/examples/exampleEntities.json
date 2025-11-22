@@ -1,0 +1,203 @@
+[
+  {
+    "id": 2001,
+    "name": "Family Member - Mother",
+    "type": "person",
+    "ep": 95,
+    "level": 1,
+    "notes": "Critical relationship. Always supportive.",
+    "createdAt": "2024-01-15T10:00:00.000Z",
+    "updatedAt": "2024-12-15T10:00:00.000Z"
+  },
+  {
+    "id": 2002,
+    "name": "Family Member - Father",
+    "type": "person",
+    "ep": 93,
+    "level": 1,
+    "notes": "Critical relationship. Provides guidance.",
+    "createdAt": "2024-01-15T10:05:00.000Z",
+    "updatedAt": "2024-12-10T10:00:00.000Z"
+  },
+  {
+    "id": 2003,
+    "name": "Best Friend - Sarah",
+    "type": "person",
+    "ep": 82,
+    "level": 2,
+    "notes": "Very close friend. Known for 10+ years. Trustworthy and reliable.",
+    "createdAt": "2024-02-01T12:00:00.000Z",
+    "updatedAt": "2024-12-01T12:00:00.000Z"
+  },
+  {
+    "id": 2004,
+    "name": "Partner - Alex",
+    "type": "person",
+    "ep": 88,
+    "level": 2,
+    "notes": "Life partner. Very important relationship.",
+    "createdAt": "2024-03-01T14:00:00.000Z",
+    "updatedAt": "2024-12-05T14:00:00.000Z"
+  },
+  {
+    "id": 2005,
+    "name": "Close Friend - Mike",
+    "type": "person",
+    "ep": 78,
+    "level": 2,
+    "notes": "Good friend from college. Regular contact.",
+    "createdAt": "2024-04-10T09:00:00.000Z",
+    "updatedAt": "2024-11-20T09:00:00.000Z"
+  },
+  {
+    "id": 2006,
+    "name": "Colleague - John",
+    "type": "person",
+    "ep": 65,
+    "level": 3,
+    "notes": "Good colleague. Helpful and professional.",
+    "createdAt": "2024-05-01T08:00:00.000Z",
+    "updatedAt": "2024-12-10T08:00:00.000Z"
+  },
+  {
+    "id": 2007,
+    "name": "Mentor - Dr. Smith",
+    "type": "person",
+    "ep": 72,
+    "level": 3,
+    "notes": "Professional mentor. Provides valuable career advice.",
+    "createdAt": "2024-05-15T11:00:00.000Z",
+    "updatedAt": "2024-12-01T11:00:00.000Z"
+  },
+  {
+    "id": 2008,
+    "name": "Acquaintance - Lisa",
+    "type": "person",
+    "ep": 55,
+    "level": 3,
+    "notes": "Met at networking event. Friendly but not close.",
+    "createdAt": "2024-06-01T13:00:00.000Z",
+    "updatedAt": "2024-11-15T13:00:00.000Z"
+  },
+  {
+    "id": 2009,
+    "name": "Former Colleague - Tom",
+    "type": "person",
+    "ep": 45,
+    "level": 4,
+    "notes": "Neutral relationship. Occasional contact.",
+    "createdAt": "2024-07-01T10:00:00.000Z",
+    "updatedAt": "2024-10-01T10:00:00.000Z"
+  },
+  {
+    "id": 2010,
+    "name": "Neighbor - Unknown",
+    "type": "person",
+    "ep": 30,
+    "level": 4,
+    "notes": "Neutral. Minimal interaction.",
+    "createdAt": "2024-08-01T09:00:00.000Z",
+    "updatedAt": "2024-08-01T09:00:00.000Z"
+  },
+  {
+    "id": 2011,
+    "name": "Former Friend - Dispute",
+    "type": "person",
+    "ep": 15,
+    "level": 5,
+    "notes": "Irreversible damage. Relationship ended badly.",
+    "createdAt": "2024-09-01T10:00:00.000Z",
+    "updatedAt": "2024-09-15T10:00:00.000Z"
+  },
+  {
+    "id": 2012,
+    "name": "Current Employer",
+    "type": "institution",
+    "ep": 85,
+    "level": 2,
+    "notes": "Very important institution. Provides livelihood and career growth.",
+    "createdAt": "2024-01-20T08:00:00.000Z",
+    "updatedAt": "2024-12-01T08:00:00.000Z"
+  },
+  {
+    "id": 2013,
+    "name": "University - Alma Mater",
+    "type": "institution",
+    "ep": 70,
+    "level": 3,
+    "notes": "Positive relationship. Provides education and networking opportunities.",
+    "createdAt": "2024-02-15T10:00:00.000Z",
+    "updatedAt": "2024-11-01T10:00:00.000Z"
+  },
+  {
+    "id": 2014,
+    "name": "Professional Association",
+    "type": "institution",
+    "ep": 60,
+    "level": 3,
+    "notes": "Good for networking and professional development.",
+    "createdAt": "2024-03-10T11:00:00.000Z",
+    "updatedAt": "2024-12-05T11:00:00.000Z"
+  },
+  {
+    "id": 2015,
+    "name": "Local Gym",
+    "type": "institution",
+    "ep": 50,
+    "level": 3,
+    "notes": "Standard service provider. Neutral relationship.",
+    "createdAt": "2024-04-01T07:00:00.000Z",
+    "updatedAt": "2024-11-20T07:00:00.000Z"
+  },
+  {
+    "id": 2016,
+    "name": "Bank - Financial Institution",
+    "type": "institution",
+    "ep": 40,
+    "level": 4,
+    "notes": "Neutral. Necessary service provider.",
+    "createdAt": "2024-05-01T09:00:00.000Z",
+    "updatedAt": "2024-10-15T09:00:00.000Z"
+  },
+  {
+    "id": 2017,
+    "name": "Former Employer - Bad Experience",
+    "type": "institution",
+    "ep": 25,
+    "level": 4,
+    "notes": "Negative experience. Left on bad terms.",
+    "createdAt": "2024-06-15T10:00:00.000Z",
+    "updatedAt": "2024-09-01T10:00:00.000Z"
+  },
+  {
+    "id": 2018,
+    "name": "Competitor Company",
+    "type": "institution",
+    "ep": 10,
+    "level": 5,
+    "notes": "Hostile relationship. Direct competitor with unethical practices.",
+    "createdAt": "2024-07-01T11:00:00.000Z",
+    "updatedAt": "2024-08-15T11:00:00.000Z"
+  },
+  {
+    "id": 2019,
+    "name": "Sibling - Brother",
+    "type": "person",
+    "ep": 92,
+    "level": 1,
+    "notes": "Critical family relationship. Very close.",
+    "createdAt": "2024-01-15T10:10:00.000Z",
+    "updatedAt": "2024-12-12T10:00:00.000Z"
+  },
+  {
+    "id": 2020,
+    "name": "Team Lead - Manager",
+    "type": "person",
+    "ep": 68,
+    "level": 3,
+    "notes": "Good working relationship. Supportive manager.",
+    "createdAt": "2024-05-20T09:00:00.000Z",
+    "updatedAt": "2024-12-08T09:00:00.000Z"
+  }
+]
+

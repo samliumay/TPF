@@ -1,0 +1,27 @@
+/**
+ * Dashboard Page Styles
+ * 
+ * Specialized styles for the Dashboard page including:
+ * - RP (Realism Point) card styling
+ * - Task list layout
+ * - Quick actions section
+ */
+
+.dashboard {
+  &__rp-card {
+    // Additional RP card styling if needed
+  }
+
+  &__task-item {
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    
+    &:hover {
+      transform: translateY(-2px);
+    }
+  }
+
+  &__quick-actions {
+    // Quick actions section styling
+  }
+}
+

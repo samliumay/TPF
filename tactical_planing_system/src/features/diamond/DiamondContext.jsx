@@ -16,8 +16,9 @@
  * - Level 1 entities should rarely drop below 90
  */
 
-import { createContext, useContext, useState, useCallback, useMemo } from 'react';
+import { createContext, useContext, useState, useCallback, useMemo, useEffect, useRef } from 'react';
 import { ENTITY_LEVELS } from '../../config/constants';
+import exampleEntities from '../../examples/exampleEntities.json';
 
 const DiamondContext = createContext(null);
 
@@ -84,6 +85,27 @@ const getLevelInfo = (levelId) => {
 export function DiamondProvider({ children }) {
   // State: Array of all entities (people, institutions)
   const [entities, setEntities] = useState([]);
+
+  // Track if example data has been initialized
+  const initializedRef = useRef(false);
+
+  // Initialize with example data (for development/testing)
+  useEffect(() => {
+    // Only initialize once on mount
+    if (!initializedRef.current) {
+      // Convert example entities from JSON format to proper format
+      const formattedEntities = exampleEntities.map(entity => ({
+        ...entity,
+        createdAt: new Date(entity.createdAt), // Convert ISO string to Date object
+        updatedAt: new Date(entity.updatedAt), // Convert ISO string to Date object
+        ep: parseFloat(entity.ep), // Ensure EP is a number
+        level: parseInt(entity.level), // Ensure level is an integer
+        notes: entity.notes || '',
+      }));
+      setEntities(formattedEntities);
+      initializedRef.current = true;
+    }
+  }, []); // Empty dependency array - only run once on mount
 
   /**
    * Add a new entity to the Diamond System

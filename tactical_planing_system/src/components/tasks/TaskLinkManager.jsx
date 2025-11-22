@@ -11,7 +11,8 @@
 
 import { useState, useMemo } from 'react';
 import { usePlanning } from '../../features/planing/PlanningContext';
-import { IMPORTANCE } from '../../config/constants';
+import { getImportanceLabel } from '../../config/functions/importanceLevel';
+import { filterTasksWithLinks } from '../../config/functions/taskFilters';
 
 export default function TaskLinkManager() {
   const { tasks, linkTask, unlinkTask, getTaskById } = usePlanning();
@@ -21,11 +22,7 @@ export default function TaskLinkManager() {
 
   // Get all tasks with links
   const tasksWithLinks = useMemo(() => {
-    return tasks.filter(
-      (task) =>
-        (task.linksTo && task.linksTo.length > 0) ||
-        (task.linkedFrom && task.linkedFrom.length > 0)
-    );
+    return filterTasksWithLinks(tasks);
   }, [tasks]);
 
   const handleCreateLink = () => {
@@ -47,16 +44,6 @@ export default function TaskLinkManager() {
     if (window.confirm('Are you sure you want to remove this link?')) {
       unlinkTask(fromId, toId);
     }
-  };
-
-  const getImportanceLabel = (il) => {
-    const labels = {
-      [IMPORTANCE.MUST]: 'Must',
-      [IMPORTANCE.HIGH]: 'High',
-      [IMPORTANCE.MEDIUM]: 'Medium',
-      [IMPORTANCE.OPTIONAL]: 'Optional',
-    };
-    return labels[il] || 'Unknown';
   };
 
   return (

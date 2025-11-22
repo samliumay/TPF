@@ -1,0 +1,135 @@
+[
+  {
+    "id": 3001,
+    "content": "Noticed that morning routines work better when I start with exercise",
+    "createdAt": "2024-12-13T07:00:00.000Z",
+    "status": "ready_for_analysis",
+    "tags": [],
+    "lessonIdentified": null,
+    "ep": null,
+    "convertedToTask": false,
+    "taskId": null
+  },
+  {
+    "id": 3002,
+    "content": "Idea: Create a mobile app for task tracking",
+    "createdAt": "2024-12-14T10:30:00.000Z",
+    "status": "ready_for_analysis",
+    "tags": [],
+    "lessonIdentified": null,
+    "ep": null,
+    "convertedToTask": false,
+    "taskId": null
+  },
+  {
+    "id": 3003,
+    "content": "Realized that breaking tasks into smaller chunks increases completion rate",
+    "createdAt": "2024-12-15T14:20:00.000Z",
+    "status": "buffer",
+    "tags": [],
+    "lessonIdentified": null,
+    "ep": null,
+    "convertedToTask": false,
+    "taskId": null
+  },
+  {
+    "id": 3004,
+    "content": "Event: Team meeting was very productive today",
+    "createdAt": "2024-12-16T16:00:00.000Z",
+    "status": "buffer",
+    "tags": [],
+    "lessonIdentified": null,
+    "ep": null,
+    "convertedToTask": false,
+    "taskId": null
+  },
+  {
+    "id": 3005,
+    "content": "Idea: Learn a new programming language for side project",
+    "createdAt": "2024-12-10T09:00:00.000Z",
+    "status": "analyzed",
+    "tags": ["learning", "programming", "side-project"],
+    "lessonIdentified": "Learning new languages expands problem-solving approaches",
+    "ep": 65,
+    "convertedToTask": true,
+    "taskId": 1018
+  },
+  {
+    "id": 3006,
+    "content": "Noticed that I work better in focused 2-hour blocks",
+    "createdAt": "2024-12-08T11:00:00.000Z",
+    "status": "analyzed",
+    "tags": ["productivity", "time-management"],
+    "lessonIdentified": "Pomodoro technique works well for my workflow",
+    "ep": 70,
+    "convertedToTask": false,
+    "taskId": null
+  },
+  {
+    "id": 3007,
+    "content": "Event: Client was very happy with the last deliverable",
+    "createdAt": "2024-12-12T15:30:00.000Z",
+    "status": "analyzed",
+    "tags": ["client", "success", "work"],
+    "lessonIdentified": "Clear communication and meeting deadlines builds trust",
+    "ep": 75,
+    "convertedToTask": false,
+    "taskId": null
+  },
+  {
+    "id": 3008,
+    "content": "Random thought: Should I switch to a different note-taking app?",
+    "createdAt": "2024-12-17T12:00:00.000Z",
+    "status": "buffer",
+    "tags": [],
+    "lessonIdentified": null,
+    "ep": null,
+    "convertedToTask": false,
+    "taskId": null
+  },
+  {
+    "id": 3009,
+    "content": "Idea: Start a blog about productivity techniques",
+    "createdAt": "2024-12-11T18:00:00.000Z",
+    "status": "ready_for_analysis",
+    "tags": [],
+    "lessonIdentified": null,
+    "ep": null,
+    "convertedToTask": false,
+    "taskId": null
+  },
+  {
+    "id": 3010,
+    "content": "Noticed that I procrastinate less when I visualize the end result",
+    "createdAt": "2024-12-09T10:00:00.000Z",
+    "status": "analyzed",
+    "tags": ["productivity", "psychology"],
+    "lessonIdentified": "Visualization is a powerful motivator for task completion",
+    "ep": 68,
+    "convertedToTask": false,
+    "taskId": null
+  },
+  {
+    "id": 3011,
+    "content": "Event: Missed an important deadline due to poor planning",
+    "createdAt": "2024-12-07T14:00:00.000Z",
+    "status": "analyzed",
+    "tags": ["failure", "planning", "lessons"],
+    "lessonIdentified": "Need to add buffer time to all deadline estimates",
+    "ep": 55,
+    "convertedToTask": false,
+    "taskId": null
+  },
+  {
+    "id": 3012,
+    "content": "Random idea: Create a habit tracking system",
+    "createdAt": "2024-12-17T08:30:00.000Z",
+    "status": "buffer",
+    "tags": [],
+    "lessonIdentified": null,
+    "ep": null,
+    "convertedToTask": false,
+    "taskId": null
+  }
+]
+

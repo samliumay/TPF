@@ -26,8 +26,9 @@
  */
 
 import { useState, useMemo } from 'react';
-import { useDiamond } from '../features/diamond/DiamondContext';
-import { ENTITY_LEVELS } from '../config/constants';
+import { useDiamond } from '../../features/diamond/DiamondContext';
+import { ENTITY_LEVELS } from '../../config/constants';
+import './DiamondSystem.scss';
 
 export default function DiamondSystem() {
   const {
@@ -158,50 +159,52 @@ export default function DiamondSystem() {
   };
 
   return (
-    <div className="px-4 py-6 sm:px-0">
-      <div className="mb-6 flex justify-between items-center">
-        <div>
-          <h1 className="text-3xl font-bold text-gray-900 mb-2">Diamond System</h1>
-          <p className="text-gray-600">
-            Evaluate entities (people, institutions) with EP (Evaluation Point) and Levels
-          </p>
+    <div className="page">
+      <div className="page__header">
+        <div className="flex justify-between items-center mb-4">
+          <div>
+            <h1 className="page__title">Diamond System</h1>
+            <p className="page__subtitle">
+              Evaluate entities (people, institutions) with EP (Evaluation Point) and Levels
+            </p>
+          </div>
+          <button
+            onClick={() => handleOpenForm()}
+            className="btn btn--primary"
+          >
+            ➕ Add Entity
+          </button>
         </div>
-        <button
-          onClick={() => handleOpenForm()}
-          className="bg-primary-600 text-white px-4 py-2 rounded-lg hover:bg-primary-700 transition-colors font-medium"
-        >
-          ➕ Add Entity
-        </button>
       </div>
 
       {/* Statistics */}
-      <div className="bg-white rounded-lg shadow-md p-6 mb-6">
-        <h2 className="text-xl font-semibold text-gray-800 mb-4">Statistics</h2>
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+      <div className="card mb-6">
+        <h2 className="card__title mb-4">Statistics</h2>
+        <div className="grid grid--cols-1 grid--md-cols-4 grid--gap-4">
           <div>
-            <p className="text-sm text-gray-600">Total Entities</p>
-            <p className="text-2xl font-bold text-gray-900">{stats.total}</p>
+            <p className="text-sm text--gray-600">Total Entities</p>
+            <p className="text-2xl font-bold text--gray-900">{stats.total}</p>
           </div>
           <div>
-            <p className="text-sm text-gray-600">Average EP</p>
-            <p className="text-2xl font-bold text-gray-900">
+            <p className="text-sm text--gray-600">Average EP</p>
+            <p className="text-2xl font-bold text--gray-900">
               {stats.averageEP.toFixed(1)}
             </p>
           </div>
           <div>
-            <p className="text-sm text-gray-600">Level 1 (Critical)</p>
-            <p className="text-2xl font-bold text-red-600">{stats.byLevel[1] || 0}</p>
+            <p className="text-sm text--gray-600">Level 1 (Critical)</p>
+            <p className="text-2xl font-bold text--red-600">{stats.byLevel[1] || 0}</p>
           </div>
           <div>
-            <p className="text-sm text-gray-600">Level 2 (Very Important)</p>
-            <p className="text-2xl font-bold text-orange-600">{stats.byLevel[2] || 0}</p>
+            <p className="text-sm text--gray-600">Level 2 (Very Important)</p>
+            <p className="text-2xl font-bold text--orange-600">{stats.byLevel[2] || 0}</p>
           </div>
         </div>
       </div>
 
       {/* Diamond Hierarchy Visualization */}
       <div className="mb-6">
-        <h2 className="text-xl font-semibold text-gray-800 mb-4">Diamond Hierarchy</h2>
+        <h2 className="text-xl font-semibold text--gray-800 mb-4">Diamond Hierarchy</h2>
         <div className="space-y-4">
           {[1, 2, 3, 4, 5].map((levelId) => {
             const levelInfo = getLevelInfo(levelId);
@@ -210,7 +213,7 @@ export default function DiamondSystem() {
             return (
               <div
                 key={levelId}
-                className={`border-2 rounded-lg p-4 ${getLevelColor(levelId)}`}
+                className={`border border--2 rounded-lg p-4 ${getLevelColor(levelId)}`}
               >
                 <div className="flex justify-between items-center mb-3">
                   <div className="flex items-center gap-3">
@@ -236,7 +239,7 @@ export default function DiamondSystem() {
                     </span>
                     <button
                       onClick={() => handleOpenForm(null, levelId)}
-                      className="bg-white bg-opacity-50 hover:bg-opacity-100 px-3 py-1 rounded text-sm font-medium transition-colors"
+                      className="bg-white bg-opacity-50 hover--bg-opacity-100 px-3 py-1 rounded text-sm font-medium transition-colors"
                     >
                       ➕ Add to Level {levelId}
                     </button>
@@ -254,7 +257,7 @@ export default function DiamondSystem() {
 
                 {/* Entities in this level */}
                 {levelEntities.length > 0 ? (
-                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 mt-4">
+                  <div className="grid grid--cols-1 grid--md-cols-2 grid--lg-cols-3 grid--gap-3 mt-4">
                     {levelEntities.map((entity) => (
                       <div
                         key={entity.id}
@@ -262,18 +265,18 @@ export default function DiamondSystem() {
                       >
                         <div className="flex justify-between items-start mb-2">
                           <div className="flex-1">
-                            <h4 className="font-semibold text-gray-900">{entity.name}</h4>
-                            <p className="text-xs text-gray-600 capitalize">{entity.type}</p>
+                            <h4 className="font-semibold text--gray-900">{entity.name}</h4>
+                            <p className="text-xs text--gray-600 capitalize">{entity.type}</p>
                           </div>
                           <button
                             onClick={() => handleDelete(entity.id)}
-                            className="text-red-600 hover:text-red-800 text-sm"
+                            className="text--red-600 hover--text-red-800 text-sm"
                           >
                             🗑️
                           </button>
                         </div>
                         <div className="flex items-center gap-2">
-                          <label className="text-xs text-gray-600">EP:</label>
+                          <label className="text-xs text--gray-600">EP:</label>
                           <input
                             type="number"
                             value={entity.ep}
@@ -283,20 +286,20 @@ export default function DiamondSystem() {
                             min="0"
                             max="100"
                             step="1"
-                            className="w-16 px-2 py-1 border border-gray-300 rounded text-sm font-bold"
+                            className="w-16 px-2 py-1 border border--gray-300 rounded text-sm font-bold"
                           />
-                          <span className="text-xs text-gray-600">
+                          <span className="text-xs text--gray-600">
                             ({levelInfo.min}-{levelInfo.max})
                           </span>
                         </div>
                         {entity.notes && (
-                          <p className="text-xs text-gray-600 mt-2 line-clamp-2">
+                          <p className="text-xs text--gray-600 mt-2 line-clamp-2">
                             {entity.notes}
                           </p>
                         )}
                         <button
                           onClick={() => handleOpenForm(entity)}
-                          className="text-xs text-primary-600 hover:text-primary-800 mt-2"
+                          className="text-xs text--primary-600 hover--text-primary-800 mt-2"
                         >
                           ✏️ Edit
                         </button>
@@ -316,32 +319,32 @@ export default function DiamondSystem() {
       {isFormOpen && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
           <div className="bg-white rounded-lg shadow-xl p-6 w-full max-w-md mx-4 max-h-[90vh] overflow-y-auto">
-            <h2 className="text-2xl font-bold text-gray-900 mb-4">
+            <h2 className="text-2xl font-bold text--gray-900 mb-4">
               {editingEntity ? 'Edit Entity' : 'Add New Entity'}
             </h2>
             <form onSubmit={handleSubmit}>
               <div className="space-y-4">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                  <label className="block text-sm font-medium text--gray-700 mb-1">
                     Entity Name *
                   </label>
                   <input
                     type="text"
                     value={formData.name}
                     onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500"
+                    className="form__input"
                     required
                   />
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                  <label className="block text-sm font-medium text--gray-700 mb-1">
                     Type *
                   </label>
                   <select
                     value={formData.type}
                     onChange={(e) => setFormData({ ...formData, type: e.target.value })}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500"
+                    className="form__select"
                     required
                   >
                     <option value="person">Person</option>
@@ -350,21 +353,21 @@ export default function DiamondSystem() {
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                  <label className="block text-sm font-medium text--gray-700 mb-1">
                     Evaluation Point (EP) * (0-100)
                   </label>
                   <input
                     type="number"
                     value={formData.ep}
                     onChange={(e) => setFormData({ ...formData, ep: e.target.value })}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500"
+                    className="form__input"
                     min="0"
                     max="100"
                     step="1"
                     required
                   />
                   {selectedLevel && (
-                    <p className="text-xs text-gray-500 mt-1">
+                    <p className="text-xs text--gray-500 mt-1">
                       Level {selectedLevel} range: {getLevelInfo(selectedLevel).min}-
                       {getLevelInfo(selectedLevel).max}
                     </p>
@@ -372,13 +375,13 @@ export default function DiamondSystem() {
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                  <label className="block text-sm font-medium text--gray-700 mb-1">
                     Notes
                   </label>
                   <textarea
                     value={formData.notes}
                     onChange={(e) => setFormData({ ...formData, notes: e.target.value })}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500"
+                    className="form__textarea"
                     rows="3"
                     placeholder="Additional notes about this entity..."
                   />
@@ -388,14 +391,14 @@ export default function DiamondSystem() {
               <div className="flex gap-3 mt-6">
                 <button
                   type="submit"
-                  className="flex-1 bg-primary-600 text-white px-4 py-2 rounded-lg hover:bg-primary-700 transition-colors font-medium"
+                  className="btn btn--primary flex-1"
                 >
                   {editingEntity ? 'Update Entity' : 'Add Entity'}
                 </button>
                 <button
                   type="button"
                   onClick={handleCloseForm}
-                  className="flex-1 bg-gray-300 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-400 transition-colors font-medium"
+                  className="btn btn--secondary flex-1"
                 >
                   Cancel
                 </button>
@@ -407,3 +410,4 @@ export default function DiamondSystem() {
     </div>
   );
 }
+

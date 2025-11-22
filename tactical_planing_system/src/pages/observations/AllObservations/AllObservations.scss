@@ -1,0 +1,22 @@
+/**
+ * AllObservations Page Styles
+ */
+
+.all-observations {
+  &__filter-section {
+    // Filter section
+  }
+
+  &__summary-grid {
+    // Summary statistics
+  }
+
+  &__observation-item {
+    transition: transform 0.2s ease;
+    
+    &:hover {
+      transform: translateY(-2px);
+    }
+  }
+}
+

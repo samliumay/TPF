@@ -14,8 +14,9 @@
  * 'buffer' -> 'ready_for_analysis' -> 'analyzed' or 'deleted'
  */
 
-import { createContext, useContext, useState, useCallback, useMemo } from 'react';
+import { createContext, useContext, useState, useCallback, useMemo, useEffect, useRef } from 'react';
 import { OBSERVATION_BUFFER_DAYS } from '../../config/constants';
+import exampleObservations from '../../examples/exampleObservations.json';
 
 const ObservationsContext = createContext(null);
 
@@ -30,6 +31,28 @@ const ObservationsContext = createContext(null);
 export function ObservationsProvider({ children }) {
   // State: Array of all observations
   const [observations, setObservations] = useState([]);
+
+  // Track if example data has been initialized
+  const initializedRef = useRef(false);
+
+  // Initialize with example data (for development/testing)
+  useEffect(() => {
+    // Only initialize once on mount
+    if (!initializedRef.current) {
+      // Convert example observations from JSON format to proper format
+      const formattedObservations = exampleObservations.map(obs => ({
+        ...obs,
+        createdAt: new Date(obs.createdAt), // Convert ISO string to Date object
+        tags: obs.tags || [],
+        lessonIdentified: obs.lessonIdentified || null,
+        ep: obs.ep !== null && obs.ep !== undefined ? parseFloat(obs.ep) : null,
+        convertedToTask: obs.convertedToTask || false,
+        taskId: obs.taskId || null,
+      }));
+      setObservations(formattedObservations);
+      initializedRef.current = true;
+    }
+  }, []); // Empty dependency array - only run once on mount
 
   /**
    * Add a new observation (OB Catch)

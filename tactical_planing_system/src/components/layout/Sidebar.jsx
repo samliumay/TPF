@@ -93,6 +93,9 @@ export default function Sidebar() {
   const { toggleTheme, isDark } = useTheme();
   const [expandedSections, setExpandedSections] = useState({
     planning: location.pathname.startsWith('/planning'),
+    observations: location.pathname.startsWith('/observations'),
+    diamond: location.pathname.startsWith('/diamond'),
+    settings: location.pathname.startsWith('/settings'),
   });
 
   /**
@@ -131,26 +134,45 @@ export default function Sidebar() {
       label: 'Planning',
       icon: <CalendarIcon />,
       items: [
-        { path: ROUTES.DAILY_PLAN, label: 'Daily Plan' },
+        { path: ROUTES.PLANNING.ALL_TASKS, label: 'All Tasks' },
+        { path: ROUTES.PLANNING.DAILY_TASKS, label: 'Daily Tasks' },
+        { path: ROUTES.PLANNING.ADD_TASK, label: 'Add Task' },
+        { path: ROUTES.PLANNING.TASK_TREE, label: 'Task Tree View' },
+        { path: ROUTES.PLANNING.TASK_CONFIGURATION, label: 'Task Configuration' },
       ],
     },
     {
-      type: 'link',
-      path: ROUTES.OBSERVATION_INPUT,
+      type: 'section',
+      key: 'observations',
       label: 'Observations',
       icon: <LightbulbIcon />,
+      items: [
+        { path: ROUTES.OBSERVATIONS.CURRENT, label: 'Current Observations' },
+        { path: ROUTES.OBSERVATIONS.WAITING_FOR_ANALYSIS, label: 'Waiting for Analysis' },
+        { path: ROUTES.OBSERVATIONS.ALL, label: 'All Observations' },
+        { path: ROUTES.OBSERVATIONS.ANALYSIS, label: 'Analysis Page' },
+      ],
     },
     {
-      type: 'link',
-      path: ROUTES.DIAMOND_VIEW,
+      type: 'section',
+      key: 'diamond',
       label: 'Diamond System',
       icon: <DiamondIcon />,
+      items: [
+        { path: ROUTES.DIAMOND.DIAGRAM, label: 'Diamond Diagram' },
+        { path: ROUTES.DIAMOND.ADD_ENTITY, label: 'Add Entity' },
+        { path: ROUTES.DIAMOND.ALL_ENTITIES, label: 'All Entities' },
+      ],
     },
     {
-      type: 'link',
-      path: ROUTES.SETTINGS,
+      type: 'section',
+      key: 'settings',
       label: 'Settings',
       icon: <SettingsIcon />,
+      items: [
+        { path: ROUTES.SETTINGS.COLOR, label: 'Color Settings' },
+        { path: ROUTES.SETTINGS.EMERGENCY, label: 'Emergency Settings' },
+      ],
     },
   ];
 
