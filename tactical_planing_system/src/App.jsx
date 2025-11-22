@@ -1,6 +1,8 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import Layout from './components/layout/Layout';
+import ProtectedRoute from './components/auth/ProtectedRoute';
 import Dashboard from './pages/dashboard/Dashboard';
+import Login from './pages/auth/Login';
 
 // Planning pages
 import AllTasks from './pages/planning/AllTasks';
@@ -30,7 +32,18 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Layout />}>
+        {/* Public route - Login */}
+        <Route path={ROUTES.LOGIN} element={<Login />} />
+        
+        {/* Protected routes - require authentication */}
+        <Route
+          path="/"
+          element={
+            <ProtectedRoute>
+              <Layout />
+            </ProtectedRoute>
+          }
+        >
           <Route index element={<Dashboard />} />
           
           {/* Planning routes */}
@@ -55,6 +68,9 @@ function App() {
           <Route path={ROUTES.SETTINGS.COLOR} element={<ColorSettings />} />
           <Route path={ROUTES.SETTINGS.EMERGENCY} element={<EmergencySettings />} />
         </Route>
+        
+        {/* Catch all - redirect to login */}
+        <Route path="*" element={<Navigate to={ROUTES.LOGIN} replace />} />
       </Routes>
     </BrowserRouter>
   );

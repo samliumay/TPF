@@ -26,11 +26,11 @@ body {
 
 a {
   font-weight: 500;
-  color: #646cff;
+  color: $primary-600;
   text-decoration: inherit;
   
   &:hover {
-    color: #535bf2;
+    color: $primary-700;
   }
 }
 

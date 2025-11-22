@@ -13,6 +13,9 @@
  */
 
 export const ROUTES = {
+    // Auth routes
+    LOGIN: '/login',
+    
     // Home/Dashboard routes
     HOME: '/',
     DASHBOARD: '/dashboard',

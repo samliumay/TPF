@@ -104,16 +104,16 @@ export default function AllObservations() {
                 ? getDaysRemaining(obs) 
                 : null;
               return (
-                <div key={obs.id} className="border border--gray-200 rounded-lg p-4 hover--shadow-md">
+                <div key={obs.id} className="observation-card border border--primary-700 rounded-lg p-4">
                   <div className="flex justify-between items-start mb-2">
                     <div className="flex-1">
-                      <p className="text--gray-900 mb-2">{obs.content}</p>
+                      <p className="text--gray-100 mb-2">{obs.content}</p>
                       <div className="flex flex-wrap gap-2 text-sm">
-                        <span className="text--gray-500">
+                        <span className="text--gray-400">
                           {formatDate(obs.createdAt)}
                         </span>
                         {daysRemaining !== null && (
-                          <span className="text--primary-600 font-semibold">
+                          <span className="text--primary-400 font-semibold">
                             {daysRemaining} day{daysRemaining !== 1 ? 's' : ''} remaining
                           </span>
                         )}
@@ -127,15 +127,15 @@ export default function AllObservations() {
                           </div>
                         )}
                         {obs.lessonIdentified && (
-                          <span className="text--gray-600">
+                          <span className="text--gray-300">
                             📚 LI: {obs.lessonIdentified}
                           </span>
                         )}
                         {obs.ep !== null && (
-                          <span className="text--gray-600">⭐ EP: {obs.ep}</span>
+                          <span className="text--gray-300">⭐ EP: {obs.ep}</span>
                         )}
                         {obs.convertedToTask && (
-                          <span className="text--green-600 font-semibold">✅ Converted to Task</span>
+                          <span className="text--green-400 font-semibold">✅ Converted to Task</span>
                         )}
                       </div>
                     </div>

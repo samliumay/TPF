@@ -2,21 +2,27 @@
  * AllEntities Page Styles
  */
 
-.all-entities {
-  &__statistics {
-    // Statistics section
+.entity-card {
+  background-color: var(--color-primary-900);
+  border-color: var(--color-primary-700) !important;
+  transition: transform 0.2s ease, background-color 0.2s ease;
+  color: var(--color-gray-100);
+  
+  &:hover {
+    transform: translateY(-2px);
+    background-color: var(--color-primary-800);
   }
-
-  &__filters {
-    // Filter section
+  
+  .text--gray-900 {
+    color: var(--color-gray-100) !important;
   }
-
-  &__entity-item {
-    transition: transform 0.2s ease;
-    
-    &:hover {
-      transform: translateY(-2px);
-    }
+  
+  .text--gray-600 {
+    color: var(--color-gray-300) !important;
+  }
+  
+  .text--gray-500 {
+    color: var(--color-gray-400) !important;
   }
 }
 

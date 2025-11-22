@@ -131,10 +131,10 @@ export default function ObservationsAnalysis() {
       </div>
 
       <div className="card mb-6">
-        <div className="mb-4 p-3 bg--gray-50 rounded-lg border border--gray-200">
-          <p className="text--gray-900 font-medium mb-2">Observation:</p>
-          <p className="text--gray-700">{observation.content}</p>
-          <p className="text-xs text--gray-500 mt-2">Caught: {formatDate(observation.createdAt)}</p>
+        <div className="mb-4 p-3 bg--primary-900 rounded-lg border border--primary-700">
+          <p className="text--gray-100 font-medium mb-2">Observation:</p>
+          <p className="text--gray-200">{observation.content}</p>
+          <p className="text-xs text--gray-400 mt-2">Caught: {formatDate(observation.createdAt)}</p>
         </div>
       </div>
 

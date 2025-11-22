@@ -74,19 +74,19 @@ export default function TaskConfiguration() {
 
         {/* RT Statistics */}
         <div className="grid grid--cols-1 grid--md-cols-2 grid--lg-cols-3 grid--gap-4 mb-6">
-          <div className="border border--gray-200 rounded-lg p-4">
-            <p className="text-sm text--gray-600 mb-1">Total RT</p>
-            <p className="text-2xl font-bold text--gray-900">{rtStats.totalRT.toFixed(1)}h</p>
+          <div className="rt-stat-card border border--gray-700 rounded-lg p-4">
+            <p className="text-sm text--gray-400 mb-1">Total RT</p>
+            <p className="text-2xl font-bold text--gray-100">{rtStats.totalRT.toFixed(1)}h</p>
             <p className="text-xs text--gray-500 mt-1">{rtStats.taskCount} tasks</p>
           </div>
-          <div className="border border--gray-200 rounded-lg p-4">
-            <p className="text-sm text--gray-600 mb-1">Average RT</p>
-            <p className="text-2xl font-bold text--gray-900">{rtStats.avgRT.toFixed(1)}h</p>
+          <div className="rt-stat-card border border--gray-700 rounded-lg p-4">
+            <p className="text-sm text--gray-400 mb-1">Average RT</p>
+            <p className="text-2xl font-bold text--gray-100">{rtStats.avgRT.toFixed(1)}h</p>
             <p className="text-xs text--gray-500 mt-1">Per task</p>
           </div>
-          <div className="border border--gray-200 rounded-lg p-4">
-            <p className="text-sm text--gray-600 mb-1">RT Range</p>
-            <p className="text-lg font-bold text--gray-900">
+          <div className="rt-stat-card border border--gray-700 rounded-lg p-4">
+            <p className="text-sm text--gray-400 mb-1">RT Range</p>
+            <p className="text-lg font-bold text--gray-100">
               {rtStats.minRT.toFixed(1)}h - {rtStats.maxRT.toFixed(1)}h
             </p>
             <p className="text-xs text--gray-500 mt-1">Min to Max</p>
@@ -94,31 +94,31 @@ export default function TaskConfiguration() {
         </div>
 
         {/* Realism Point (RP) */}
-        <div className="border border--primary-200 rounded-lg p-4 bg--primary-50">
+        <div className="rp-card border border--primary-700 rounded-lg p-4 bg--primary-900">
           <div className="flex justify-between items-center mb-2">
             <div>
-              <p className="text-sm text--gray-600 mb-1">Realism Point (RP)</p>
-              <p className="text-3xl font-bold text--gray-900">{rtStats.rp.toFixed(2)}</p>
+              <p className="text-sm text--gray-400 mb-1">Realism Point (RP)</p>
+              <p className="text-3xl font-bold text--gray-100">{rtStats.rp.toFixed(2)}</p>
             </div>
             <div className="text-right">
-              <p className="text-sm text--gray-600 mb-1">Status</p>
+              <p className="text-sm text--gray-400 mb-1">Status</p>
               <p className={`text-xl font-bold ${rtStats.rpColor}`}>
                 {rtStats.rpStatus}
               </p>
             </div>
           </div>
-          <div className="mt-3 pt-3 border-t border--primary-200">
+          <div className="mt-3 pt-3 border-t border--primary-700">
             <div className="grid grid--cols-2 grid--gap-4 text-sm">
               <div>
-                <span className="text--gray-600">Available Time: </span>
-                <span className="font-semibold">{availableTime}h</span>
+                <span className="text--gray-400">Available Time: </span>
+                <span className="font-semibold text--gray-100">{availableTime}h</span>
               </div>
               <div>
-                <span className="text--gray-600">Total RT: </span>
-                <span className="font-semibold">{rtStats.totalRT.toFixed(1)}h</span>
+                <span className="text--gray-400">Total RT: </span>
+                <span className="font-semibold text--gray-100">{rtStats.totalRT.toFixed(1)}h</span>
               </div>
             </div>
-            <p className="text-xs text--gray-600 mt-2">
+            <p className="text-xs text--gray-400 mt-2">
               RP = Total RT / Available Time. 
               {rtStats.rp < 0.8 && ' ✓ Plan is realistic with good buffer.'}
               {rtStats.rp >= 0.8 && rtStats.rp < 1.0 && ' ⚠️ Tight schedule, requires focus.'}

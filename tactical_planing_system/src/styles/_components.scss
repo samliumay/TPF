@@ -3,7 +3,7 @@
 
 // Layout Components
 .navbar {
-  background-color: #0f172a; // Dark blue header
+  background-color: $primary-900; // Dark teal header
   color: white;
   box-shadow: $shadow-lg;
   position: fixed;
@@ -14,7 +14,7 @@
   height: 4rem; // 64px
   
   @include dark-mode {
-    background-color: #0f172a; // Consistent dark blue
+    background-color: $primary-900; // Consistent dark teal
   }
   
   &__container {
@@ -45,7 +45,7 @@
     display: flex;
     flex-direction: column;
     width: 18rem; // 288px (wider for better readability)
-    background-color: #1e293b; // Dark blue-gray similar to examples
+    background-color: $primary-800; // Dark teal sidebar
     color: white;
     min-height: 100vh;
     position: fixed;
@@ -55,7 +55,7 @@
     overflow-y: auto;
     
     @include dark-mode {
-      background-color: #1e293b; // Consistent dark blue-gray
+      background-color: $primary-800; // Consistent dark teal
     }
   }
   
@@ -91,10 +91,10 @@
     }
     
     &--active {
-      background-color: rgba(59, 130, 246, 0.15); // Light blue background
+      background-color: rgba(20, 184, 166, 0.15); // Light teal background
       color: white;
       font-weight: 600;
-      border-left-color: #3b82f6; // Blue accent bar on left
+      border-left-color: $primary-500; // Teal accent bar on left
       
       &::before {
         content: '';
@@ -103,7 +103,7 @@
         top: 0;
         bottom: 0;
         width: 3px;
-        background-color: #3b82f6; // Blue accent bar
+        background-color: $primary-500; // Teal accent bar
       }
     }
   }
@@ -168,7 +168,7 @@
     }
     
     &--active {
-      background-color: rgba(59, 130, 246, 0.2); // Slightly stronger blue
+      background-color: rgba(20, 184, 166, 0.2); // Slightly stronger teal
       color: white;
       font-weight: 600;
       
@@ -179,7 +179,7 @@
         top: 0;
         bottom: 0;
         width: 3px;
-        background-color: #3b82f6; // Blue accent bar
+        background-color: $primary-500; // Teal accent bar
         border-radius: 0 $radius-sm $radius-sm 0;
       }
     }
@@ -271,7 +271,7 @@
   background-color: #f8fafc; // Light gray background for light mode
   
   @include dark-mode {
-    background-color: #0f172a; // Dark blue background for main content area (matches examples)
+    background-color: $primary-900; // Dark teal background for main content area
   }
   
   &__main {
@@ -280,7 +280,7 @@
     background-color: #f8fafc;
     
     @include dark-mode {
-      background-color: #1e293b; // Slightly lighter than sidebar for contrast
+      background-color: $primary-800; // Slightly lighter than sidebar for contrast
     }
     
     @include md {
@@ -335,9 +335,12 @@
   box-shadow: $shadow-md;
   padding: $spacing-6;
   margin-bottom: $spacing-6;
+  border: 1px solid transparent;
   
   @include dark-mode {
-    background-color: $gray-800;
+    background-color: $primary-900;
+    border-color: $primary-700;
+    box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.3), 0 2px 4px -2px rgb(0 0 0 / 0.3);
   }
   
   &__header {
@@ -353,12 +356,15 @@
     color: $gray-800;
     
     @include dark-mode {
-      color: white;
+      color: $gray-100;
     }
   }
   
   &__body {
     // Card body styles
+    @include dark-mode {
+      color: $gray-200;
+    }
   }
 }
 
@@ -448,17 +454,24 @@
     border: 1px solid $gray-300;
     border-radius: $radius-lg;
     font-size: 1rem;
+    background-color: white;
+    color: $gray-900;
     
     @include dark-mode {
-      background-color: $gray-700;
-      border-color: $gray-600;
-      color: white;
+      background-color: $primary-800;
+      border-color: $primary-700;
+      color: $gray-100;
     }
     
     &:focus {
       outline: none;
       border-color: $primary-500;
       box-shadow: 0 0 0 2px rgba($primary-500, 0.2);
+      
+      @include dark-mode {
+        border-color: $primary-400;
+        box-shadow: 0 0 0 2px rgba($primary-500, 0.3);
+      }
     }
   }
   
@@ -503,6 +516,11 @@
   &--green {
     background-color: $green-100;
     color: $green-800;
+    
+    @include dark-mode {
+      background-color: $green-800;
+      color: $green-300;
+    }
   }
 }
 
@@ -768,6 +786,14 @@
   
   &--primary-700 {
     background-color: $primary-700;
+  }
+  
+  &--primary-800 {
+    background-color: $primary-800;
+  }
+  
+  &--primary-900 {
+    background-color: $primary-900;
   }
   
   &--red-50 {

@@ -50,7 +50,7 @@ export default function ObservationsWaiting() {
         ) : (
           <div className="space-y-3">
             {readyForAnalysis.map((obs) => (
-              <div key={obs.id} className="border border--yellow-200 rounded-lg p-4 bg--yellow-50">
+              <div key={obs.id} className="observation-card border border--gray-300 rounded-lg p-4">
                 <div className="flex justify-between items-start mb-3">
                   <div className="flex-1">
                     <p className="text--gray-900 mb-2 font-medium">{obs.content}</p>
@@ -65,12 +65,6 @@ export default function ObservationsWaiting() {
                     className="btn btn--primary"
                   >
                     📊 Analyze
-                  </button>
-                  <button
-                    onClick={() => navigate(`${ROUTES.OBSERVATIONS.ANALYSIS}?id=${obs.id}&action=convert`)}
-                    className="btn btn--success"
-                  >
-                    ✅ Convert to Task
                   </button>
                   <button
                     onClick={() => handleDelete(obs.id)}

@@ -79,21 +79,21 @@ export default function CurrentObservations() {
             {inBuffer.map((obs) => {
               const daysRemaining = getDaysRemaining(obs);
               return (
-                <div key={obs.id} className="border border--primary-200 rounded-lg p-4 bg--primary-50">
+                <div key={obs.id} className="observation-card border border--primary-700 rounded-lg p-4">
                   <div className="flex justify-between items-start">
                     <div className="flex-1">
-                      <p className="text--gray-900 mb-2">{obs.content}</p>
-                      <span className="text-xs text--gray-500">
+                      <p className="text--gray-100 mb-2">{obs.content}</p>
+                      <span className="text-xs text--gray-400">
                         Caught: {formatDate(obs.createdAt)}
                       </span>
                     </div>
                     <div className="text-right ml-4">
-                      <span className="text-sm font-semibold text--primary-600 block mb-2">
+                      <span className="text-sm font-semibold text--primary-400 block mb-2">
                         {daysRemaining} day{daysRemaining !== 1 ? 's' : ''} remaining
                       </span>
                       <button
                         onClick={() => handleDelete(obs.id)}
-                        className="text--red-600 hover--text-red-800 text-sm font-medium"
+                        className="text--red-400 hover--text-red-300 text-sm font-medium"
                       >
                         🗑️ Delete
                       </button>

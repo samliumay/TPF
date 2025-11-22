@@ -9,6 +9,11 @@ import { useDiamond } from '../../../features/diamond/DiamondContext';
 import { useNavigate } from 'react-router-dom';
 import { ENTITY_LEVELS } from '../../../config/constants';
 import { ROUTES } from '../../../config/routes';
+import PageHeader from '../../../components/ui/PageHeader';
+import Card from '../../../components/ui/Card';
+import SummaryGrid from '../../../components/ui/SummaryGrid';
+import FilterBar from '../../../components/ui/FilterBar';
+import EmptyState from '../../../components/ui/EmptyState';
 import './AllEntities.scss';
 
 export default function AllEntities() {
@@ -71,48 +76,45 @@ export default function AllEntities() {
 
   return (
     <div className="page">
-      <div className="page__header">
-        <div className="flex justify-between items-center mb-4">
-          <div>
-            <h1 className="page__title">All Entities</h1>
-            <p className="page__subtitle">View and manage all entities in the Diamond System</p>
-          </div>
+      <PageHeader
+        title="All Entities"
+        subtitle="View and manage all entities in the Diamond System"
+        action={
           <button 
             onClick={() => navigate(ROUTES.DIAMOND.ADD_ENTITY)}
             className="btn btn--primary"
           >
             ➕ Add New Entity
           </button>
-        </div>
-      </div>
+        }
+      />
 
       {/* Statistics */}
-      <div className="card mb-6">
-        <div className="grid grid--cols-1 grid--md-cols-3 grid--gap-4">
-          <div>
-            <p className="text-sm text--gray-600">Total Entities</p>
-            <p className="text-2xl font-bold text--gray-900">{stats?.total ?? 0}</p>
-          </div>
-          <div>
-            <p className="text-sm text--gray-600">Average EP</p>
-            <p className="text-2xl font-bold text--gray-900">{(stats?.averageEP ?? 0).toFixed(1)}</p>
-          </div>
-          <div>
-            <p className="text-sm text--gray-600">By Level</p>
-            <div className="text-sm text--gray-600 mt-1">
-              {stats?.byLevel && Object.entries(stats.byLevel).map(([level, count]) => (
-                <span key={level} className="mr-2">
-                  L{level}: {count}
-                </span>
-              ))}
-            </div>
-          </div>
-        </div>
-      </div>
+      <Card className="mb-6">
+        <SummaryGrid 
+          stats={[
+            { label: 'Total Entities', value: stats?.total ?? 0 },
+            { label: 'Average EP', value: (stats?.averageEP ?? 0).toFixed(1) },
+            { 
+              label: 'By Level', 
+              value: stats?.byLevel ? (
+                <div className="text-sm">
+                  {Object.entries(stats.byLevel).map(([level, count]) => (
+                    <span key={level} className="mr-2">
+                      L{level}: {count}
+                    </span>
+                  ))}
+                </div>
+              ) : '0'
+            },
+          ]} 
+          columns={3} 
+        />
+      </Card>
 
       {/* Filters */}
-      <div className="card mb-6">
-        <div className="flex items-center gap-4 flex-wrap">
+      <Card className="mb-6">
+        <FilterBar>
           <label className="form__label mb-0">Filter by Level:</label>
           <select
             value={levelFilter === null ? '' : levelFilter}
@@ -139,31 +141,33 @@ export default function AllEntities() {
             <option value="person">Person</option>
             <option value="institution">Institution</option>
           </select>
-        </div>
-      </div>
+        </FilterBar>
+      </Card>
 
       {/* Entities List */}
-      <div className="card">
+      <Card>
         {filteredEntities.length === 0 ? (
-          <div className="empty-state">
-            <p className="empty-state__title">No entities found</p>
-            <button
-              onClick={() => navigate(ROUTES.DIAMOND.ADD_ENTITY)}
-              className="text--primary-600 hover--text-primary-800 font-medium"
-            >
-              Add your first entity →
-            </button>
-          </div>
+          <EmptyState
+            title="No entities found"
+            action={
+              <button
+                onClick={() => navigate(ROUTES.DIAMOND.ADD_ENTITY)}
+                className="text--primary-400 hover--text-primary-300 font-medium"
+              >
+                Add your first entity →
+              </button>
+            }
+          />
         ) : (
           <div className="space-y-3">
             {filteredEntities.map((entity) => (
-              <div key={entity.id} className="border border--gray-200 rounded-lg p-4 hover--shadow-md">
+              <div key={entity.id} className="entity-card border border--primary-700 rounded-lg p-4">
                 <div className="flex justify-between items-start">
                   <div className="flex-1">
-                    <h3 className="font-semibold text--gray-900 mb-2" style={{ fontSize: '1.125rem' }}>
+                    <h3 className="font-semibold text--gray-100 mb-2" style={{ fontSize: '1.125rem' }}>
                       {entity.name}
                     </h3>
-                    <div className="flex flex-wrap gap-4 text-sm text--gray-600">
+                    <div className="flex flex-wrap gap-4 text-sm text--gray-300">
                       <span className="flex items-center gap-1">
                         <strong>Type:</strong> {entity.type === 'person' ? '👤 Person' : '🏢 Institution'}
                       </span>
@@ -183,13 +187,13 @@ export default function AllEntities() {
                     </span>
                     <button
                       onClick={() => navigate(`${ROUTES.DIAMOND.DIAGRAM}?entity=${entity.id}`)}
-                      className="text--primary-600 hover--text-primary-800 px-2 py-1 text-sm font-medium"
+                      className="text--primary-400 hover--text-primary-300 px-2 py-1 text-sm font-medium"
                     >
                       ✏️ Edit
                     </button>
                     <button
                       onClick={() => handleDelete(entity.id)}
-                      className="text--red-600 hover--text-red-800 px-2 py-1 text-sm font-medium"
+                      className="text--red-400 hover--text-red-300 px-2 py-1 text-sm font-medium"
                     >
                       🗑️ Delete
                     </button>
@@ -199,7 +203,7 @@ export default function AllEntities() {
             ))}
           </div>
         )}
-      </div>
+      </Card>
     </div>
   );
 }
