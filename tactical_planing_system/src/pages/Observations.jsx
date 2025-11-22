@@ -1,3 +1,26 @@
+/**
+ * Observations - Observation catch and analysis page with 2-day buffer system
+ * 
+ * Implements the impulse control mechanism for ADHD optimization.
+ * 
+ * Workflow:
+ * 1. OB Catch: User logs an observation (idea, event)
+ * 2. Buffer Period: System holds observation for 2 days
+ * 3. Analysis: After 2 days, user reviews:
+ *    - Valuable? -> Add Tags, LI (Lesson Identified), EP (Evaluation Point), or convert to Task
+ *    - Not Valuable? -> Delete (DEL)
+ * 
+ * Status Sections:
+ * - In Buffer: Observations waiting for 2-day period (shows days remaining)
+ * - Ready for Analysis: Observations that completed buffer (can be analyzed)
+ * - Analyzed: Observations that have been reviewed and processed
+ * 
+ * Actions Available:
+ * - Analyze: Add Tags, LI, EP to observation
+ * - Convert to Task: Transform observation into a task with RT, IDL, IL
+ * - Delete: Remove observation if not valuable
+ */
+
 import { useState, useMemo } from 'react';
 import { useObservations } from '../features/observations/ObservationsContext';
 import { usePlanning } from '../features/planing/PlanningContext';
@@ -144,12 +167,12 @@ export default function Observations() {
               value={observationText}
               onChange={(e) => setObservationText(e.target.value)}
               placeholder="Enter your observation, idea, or event..."
-              className="flex-1 px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 min-h-[100px]"
+              className="flex-1 px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 min-h-[100px]"
               rows="3"
             />
             <button
               type="submit"
-              className="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition-colors font-medium self-start"
+              className="bg-primary-600 text-white px-6 py-2 rounded-lg hover:bg-primary-700 transition-colors font-medium self-start"
             >
               Catch OB
             </button>
@@ -184,7 +207,7 @@ export default function Observations() {
                 <div className="flex gap-2 mt-3">
                   <button
                     onClick={() => handleOpenAnalysis(obs)}
-                    className="bg-blue-600 text-white px-3 py-1 rounded text-sm hover:bg-blue-700 transition-colors"
+                    className="bg-primary-600 text-white px-3 py-1 rounded text-sm hover:bg-primary-700 transition-colors"
                   >
                     📊 Analyze
                   </button>
@@ -209,14 +232,14 @@ export default function Observations() {
 
       {/* In Buffer Section */}
       {inBuffer.length > 0 && (
-        <div className="bg-blue-50 border-2 border-blue-200 rounded-lg shadow-md p-6 mb-6">
+        <div className="bg-primary-50 border-2 border-primary-200 rounded-lg shadow-md p-6 mb-6">
           <div className="flex items-center gap-2 mb-4">
             <span className="text-2xl">⏳</span>
-            <h2 className="text-xl font-semibold text-blue-800">
+            <h2 className="text-xl font-semibold text-primary-800">
               In Buffer ({inBuffer.length})
             </h2>
           </div>
-          <p className="text-sm text-blue-700 mb-4">
+          <p className="text-sm text-primary-700 mb-4">
             These observations are waiting for their 2-day buffer period to complete.
           </p>
           <div className="space-y-3">
@@ -225,7 +248,7 @@ export default function Observations() {
               return (
                 <div
                   key={obs.id}
-                  className="bg-white border border-blue-300 rounded-lg p-4"
+                  className="bg-white border border-primary-300 rounded-lg p-4"
                 >
                   <div className="flex justify-between items-start mb-2">
                     <p className="text-gray-900 flex-1">{obs.content}</p>
@@ -233,7 +256,7 @@ export default function Observations() {
                       <span className="text-xs text-gray-500 block">
                         Caught: {formatDate(obs.createdAt)}
                       </span>
-                      <span className="text-sm font-semibold text-blue-600">
+                      <span className="text-sm font-semibold text-primary-600">
                         {daysRemaining} day{daysRemaining !== 1 ? 's' : ''} remaining
                       </span>
                     </div>
@@ -270,7 +293,7 @@ export default function Observations() {
                         {obs.tags.map((tag, idx) => (
                           <span
                             key={idx}
-                            className="bg-blue-100 text-blue-800 px-2 py-1 rounded"
+                            className="bg-primary-100 text-primary-800 px-2 py-1 rounded"
                           >
                             {tag}
                           </span>
@@ -326,7 +349,7 @@ export default function Observations() {
                       setAnalysisData({ ...analysisData, tags: e.target.value })
                     }
                     placeholder="work, personal, idea"
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500"
                   />
                 </div>
                 <div>
@@ -339,7 +362,7 @@ export default function Observations() {
                       setAnalysisData({ ...analysisData, lessonIdentified: e.target.value })
                     }
                     placeholder="What did you learn from this?"
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500"
                     rows="3"
                   />
                 </div>
@@ -356,14 +379,14 @@ export default function Observations() {
                     placeholder="0-100"
                     min="0"
                     max="100"
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500"
                   />
                 </div>
               </div>
               <div className="flex gap-3 mt-6">
                 <button
                   type="submit"
-                  className="flex-1 bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors font-medium"
+                  className="flex-1 bg-primary-600 text-white px-4 py-2 rounded-lg hover:bg-primary-700 transition-colors font-medium"
                 >
                   Save Analysis
                 </button>
@@ -403,7 +426,7 @@ export default function Observations() {
                     onChange={(e) =>
                       setTaskFormData({ ...taskFormData, title: e.target.value })
                     }
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500"
                     required
                   />
                 </div>
@@ -417,7 +440,7 @@ export default function Observations() {
                       onChange={(e) =>
                         setTaskFormData({ ...taskFormData, rt: e.target.value })
                       }
-                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500"
                       min="0"
                       step="0.5"
                       required
@@ -433,7 +456,7 @@ export default function Observations() {
                     onChange={(e) =>
                       setTaskFormData({ ...taskFormData, idl: e.target.value })
                     }
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500"
                     required
                   />
                 </div>
@@ -446,7 +469,7 @@ export default function Observations() {
                     onChange={(e) =>
                       setTaskFormData({ ...taskFormData, il: parseInt(e.target.value) })
                     }
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500"
                     required
                   >
                     <option value={IMPORTANCE.MUST}>Level 1 - Must</option>

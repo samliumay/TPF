@@ -43,18 +43,34 @@ export function PlanningProvider({ children }) {
    * @param {number|string} task.rt - Required Time in hours
    * @param {Date|string} task.idl - Ideal Deadline (date/time)
    * @param {number|string} task.il - Importance Level (1-4)
+   * @param {number} [task.parentTaskId] - ID of parent task (for subtasks)
    * @returns {Object} The newly created task with generated ID
    */
   const addTask = useCallback((task) => {
     const newTask = {
-      id: Date.now(), // Simple ID generation (will be replaced with backend UUID)
+      id: Date.now() + Math.random(), // Simple ID generation (will be replaced with backend UUID)
       title: task.title,
       rt: parseFloat(task.rt), // Convert to float for decimal hours (e.g., 1.5 hours)
       idl: new Date(task.idl), // Convert to Date object
       il: parseInt(task.il), // Convert to integer (1-4)
       createdAt: new Date(), // Track when task was created
+      parentTaskId: task.parentTaskId || null, // Parent task ID for subtasks
+      subtasks: [], // Array of subtask IDs
+      linksTo: [], // Array of task IDs this task links to (directional)
+      linkedFrom: [], // Array of task IDs that link to this task
     };
-    setTasks((prev) => [...prev, newTask]);
+    setTasks((prev) => {
+      const updated = [...prev, newTask];
+      // If this is a subtask, add it to parent's subtasks array
+      if (task.parentTaskId) {
+        return updated.map((t) =>
+          t.id === task.parentTaskId
+            ? { ...t, subtasks: [...(t.subtasks || []), newTask.id] }
+            : t
+        );
+      }
+      return updated;
+    });
     return newTask;
   }, []);
 
@@ -89,11 +105,44 @@ export function PlanningProvider({ children }) {
 
   /**
    * Delete a task from the system
+   * Also removes it from parent's subtasks and cleans up all links
    * 
    * @param {number} taskId - ID of the task to delete
    */
   const deleteTask = useCallback((taskId) => {
-    setTasks((prev) => prev.filter((task) => task.id !== taskId));
+    setTasks((prev) => {
+      const taskToDelete = prev.find((t) => t.id === taskId);
+      if (!taskToDelete) return prev;
+
+      // Remove from parent's subtasks
+      let updated = prev.map((task) => {
+        if (task.id === taskToDelete.parentTaskId) {
+          return {
+            ...task,
+            subtasks: (task.subtasks || []).filter((id) => id !== taskId),
+          };
+        }
+        // Remove links to/from this task
+        return {
+          ...task,
+          linksTo: (task.linksTo || []).filter((id) => id !== taskId),
+          linkedFrom: (task.linkedFrom || []).filter((id) => id !== taskId),
+        };
+      });
+
+      // Delete all subtasks recursively
+      const deleteSubtasks = (parentId) => {
+        const subtasks = updated.filter((t) => t.parentTaskId === parentId);
+        subtasks.forEach((subtask) => {
+          updated = updated.filter((t) => t.id !== subtask.id);
+          deleteSubtasks(subtask.id);
+        });
+      };
+      deleteSubtasks(taskId);
+
+      // Remove the task itself
+      return updated.filter((task) => task.id !== taskId);
+    });
   }, []);
 
   /**
@@ -145,6 +194,116 @@ export function PlanningProvider({ children }) {
     return getTasksForDate(new Date());
   }, [getTasksForDate]);
 
+  /**
+   * Link a task to another task (directional relationship)
+   * 
+   * @param {number} fromTaskId - ID of the task that links
+   * @param {number} toTaskId - ID of the task being linked to
+   */
+  const linkTask = useCallback((fromTaskId, toTaskId) => {
+    if (fromTaskId === toTaskId) return; // Prevent self-linking
+    
+    setTasks((prev) =>
+      prev.map((task) => {
+        if (task.id === fromTaskId) {
+          // Add to linksTo if not already present
+          const linksTo = task.linksTo || [];
+          if (!linksTo.includes(toTaskId)) {
+            return { ...task, linksTo: [...linksTo, toTaskId] };
+          }
+        }
+        if (task.id === toTaskId) {
+          // Add to linkedFrom if not already present
+          const linkedFrom = task.linkedFrom || [];
+          if (!linkedFrom.includes(fromTaskId)) {
+            return { ...task, linkedFrom: [...linkedFrom, fromTaskId] };
+          }
+        }
+        return task;
+      })
+    );
+  }, []);
+
+  /**
+   * Unlink a task from another task
+   * 
+   * @param {number} fromTaskId - ID of the task that links
+   * @param {number} toTaskId - ID of the task being unlinked from
+   */
+  const unlinkTask = useCallback((fromTaskId, toTaskId) => {
+    setTasks((prev) =>
+      prev.map((task) => {
+        if (task.id === fromTaskId) {
+          return {
+            ...task,
+            linksTo: (task.linksTo || []).filter((id) => id !== toTaskId),
+          };
+        }
+        if (task.id === toTaskId) {
+          return {
+            ...task,
+            linkedFrom: (task.linkedFrom || []).filter((id) => id !== fromTaskId),
+          };
+        }
+        return task;
+      })
+    );
+  }, []);
+
+  /**
+   * Get a task by ID
+   * 
+   * @param {number} taskId - ID of the task
+   * @returns {Object|null} The task object or null if not found
+   */
+  const getTaskById = useCallback(
+    (taskId) => {
+      return tasks.find((task) => task.id === taskId) || null;
+    },
+    [tasks]
+  );
+
+  /**
+   * Get all root tasks (tasks without a parent)
+   * 
+   * @returns {Array} Array of root tasks
+   */
+  const getRootTasks = useCallback(() => {
+    return tasks.filter((task) => !task.parentTaskId);
+  }, [tasks]);
+
+  /**
+   * Get all subtasks of a task
+   * 
+   * @param {number} taskId - ID of the parent task
+   * @returns {Array} Array of subtask objects
+   */
+  const getSubtasks = useCallback(
+    (taskId) => {
+      return tasks.filter((task) => task.parentTaskId === taskId);
+    },
+    [tasks]
+  );
+
+  /**
+   * Build task tree structure for visualization
+   * 
+   * @returns {Array} Array of root tasks with nested subtasks
+   */
+  const getTaskTree = useCallback(() => {
+    const rootTasks = getRootTasks();
+    
+    const buildTree = (task) => {
+      const subtasks = getSubtasks(task.id);
+      return {
+        ...task,
+        children: subtasks.map(buildTree),
+      };
+    };
+
+    return rootTasks.map(buildTree);
+  }, [getRootTasks, getSubtasks]);
+
   // Context value object - all state and functions exposed to consumers
   const value = {
     tasks, // Array of all tasks
@@ -156,6 +315,12 @@ export function PlanningProvider({ children }) {
     catastrophicWipeOut, // Function to execute CWA
     getTasksForDate, // Function to filter tasks by date
     getTodayTasks, // Function to get today's tasks
+    linkTask, // Function to link tasks
+    unlinkTask, // Function to unlink tasks
+    getTaskById, // Function to get task by ID
+    getRootTasks, // Function to get root tasks
+    getSubtasks, // Function to get subtasks
+    getTaskTree, // Function to get task tree structure
   };
 
   return (

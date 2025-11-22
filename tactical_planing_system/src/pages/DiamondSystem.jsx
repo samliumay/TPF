@@ -1,3 +1,30 @@
+/**
+ * DiamondSystem - Entity evaluation and management page
+ * 
+ * The Diamond System evaluates entities (people, institutions) in the user's life.
+ * Each entity has an EP (Evaluation Point) score (0-100) that determines its Level.
+ * 
+ * Level Hierarchy:
+ * - Level 1 (90-100): Critical (Family, Life-savers) - Almost never drops below 90
+ * - Level 2 (75-90): Very Important (Close friends, Partner) - Can drop to L3, never rise to L1
+ * - Level 3 (50-75): Positive (Good colleagues, acquaintances) - Standard entry point
+ * - Level 4 (20-50): Neutral/Negative (Indifferent, minor conflicts)
+ * - Level 5 (<20): Hostile (Enemies, irreversible damage) - Blacklisted
+ * 
+ * Features:
+ * - Add/Edit/Delete entities
+ * - Update EP scores with automatic level calculation
+ * - Level transition rule enforcement
+ * - Visual hierarchy display with color coding
+ * - Statistics: Total entities, Average EP, Count by level
+ * 
+ * Entity Properties:
+ * - Name: Entity name (required)
+ * - Type: 'person' or 'institution' (required)
+ * - EP: Evaluation Point 0-100 (required, determines level)
+ * - Notes: Optional additional information
+ */
+
 import { useState, useMemo } from 'react';
 import { useDiamond } from '../features/diamond/DiamondContext';
 import { ENTITY_LEVELS } from '../config/constants';
@@ -141,7 +168,7 @@ export default function DiamondSystem() {
         </div>
         <button
           onClick={() => handleOpenForm()}
-          className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors font-medium"
+          className="bg-primary-600 text-white px-4 py-2 rounded-lg hover:bg-primary-700 transition-colors font-medium"
         >
           ➕ Add Entity
         </button>
@@ -269,7 +296,7 @@ export default function DiamondSystem() {
                         )}
                         <button
                           onClick={() => handleOpenForm(entity)}
-                          className="text-xs text-blue-600 hover:text-blue-800 mt-2"
+                          className="text-xs text-primary-600 hover:text-primary-800 mt-2"
                         >
                           ✏️ Edit
                         </button>
@@ -302,7 +329,7 @@ export default function DiamondSystem() {
                     type="text"
                     value={formData.name}
                     onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500"
                     required
                   />
                 </div>
@@ -314,7 +341,7 @@ export default function DiamondSystem() {
                   <select
                     value={formData.type}
                     onChange={(e) => setFormData({ ...formData, type: e.target.value })}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500"
                     required
                   >
                     <option value="person">Person</option>
@@ -330,7 +357,7 @@ export default function DiamondSystem() {
                     type="number"
                     value={formData.ep}
                     onChange={(e) => setFormData({ ...formData, ep: e.target.value })}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500"
                     min="0"
                     max="100"
                     step="1"
@@ -351,7 +378,7 @@ export default function DiamondSystem() {
                   <textarea
                     value={formData.notes}
                     onChange={(e) => setFormData({ ...formData, notes: e.target.value })}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500"
                     rows="3"
                     placeholder="Additional notes about this entity..."
                   />
@@ -361,7 +388,7 @@ export default function DiamondSystem() {
               <div className="flex gap-3 mt-6">
                 <button
                   type="submit"
-                  className="flex-1 bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors font-medium"
+                  className="flex-1 bg-primary-600 text-white px-4 py-2 rounded-lg hover:bg-primary-700 transition-colors font-medium"
                 >
                   {editingEntity ? 'Update Entity' : 'Add Entity'}
                 </button>
