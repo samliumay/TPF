@@ -1,4 +1,4 @@
-# TPF (Tactical Planning Framework) v1.0
+# TPF (Tactical Planning Framework) v1.0 (for light version check umaykuzeysamli.space)
 
 ![Status](https://img.shields.io/badge/Status-Under%20Construction-yellow)
 ![Version](https://img.shields.io/badge/Version-1.0-blue)
@@ -12,7 +12,7 @@ This repository hosts the digital implementation of the **Tactical Planning Fram
 
 > **Note:** This documentation outlines the system architecture and philosophy. It is not a user manual or a finalized Software Requirements Specification (SRS). The framework is subject to iterative updates.
 
-## 🧠 Philosophy & Motivation
+## Philosophy & Motivation
 
 This project was born from a specific need: **Optimizing an ADHD mind that thrives on complexity rather than simplicity.**
 
@@ -60,12 +60,23 @@ The project utilizes a feature-based architecture with a focus on data integrity
 * **Caching:** Redis (Planned for RP calculation optimization)
 * **Infrastructure:** Docker (Containerization)
 
+## Tech Stack - Light ( umaykuzeysamli.space )
+
+- Next.js 16
+- TypeScript
+- Drizzle ORM
+- PostgreSQL
+- Tailwind CSS
+- Postgresql
+- node.js
+- AWS (sadly)
+
 ## Roadmap & Current Status
 
-The project is currently in the **Alpha** development phase.
+The project is currently in the **Alpha** development phase. (all done at the light phase)
 
 - [x] **Frontend Architecture:** React implementation of Dashboard, Diamond View, and Task Trees.
-- [x] **Database Schema:** PostgreSQL ERD design (Recursive Tasks, Entity Relations).
+- [ ] **Database Schema:** PostgreSQL ERD design (Recursive Tasks, Entity Relations).
 - [ ] **Backend Logic:** Spring Boot REST API integration.
 - [ ] **Algorithm Implementation:** Auto-distribution (Smoothing) & Graph Dependency logic.
 - [ ] **Optimization:** Redis caching layer implementation.
@@ -79,3 +90,4 @@ _Installation instructions and Docker Compose configurations are coming soon._
 
 Current Version: **v1.0**
 This system follows Semantic Versioning. Future updates will introduce advanced features such as Entity Interaction Mapping and Automated CWA Triggers.
+
