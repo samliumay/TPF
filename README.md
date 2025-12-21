@@ -1,4 +1,4 @@
-# TPF (Tactical Planning Framework) v1.0 (for light version check [umaykuzeysamli.space](umaykuzeysamli.space))
+# TPF (Tactical Planning Framework) v1.0 (for light version check [umaykuzeysamli.space](www.umaykuzeysamli.space))
 
 ![Status](https://img.shields.io/badge/Status-Under%20Construction-yellow)
 ![Version](https://img.shields.io/badge/Version-1.0-blue)
@@ -73,7 +73,7 @@ The project utilizes a feature-based architecture with a focus on data integrity
 
 ## Roadmap & Current Status
 
-The project is currently in the **Alpha** development phase. (all done at the light phase [umaykuzeysamli.space](umaykuzeysamli.space))
+The project is currently in the **Alpha** development phase. (all done at the light phase [umaykuzeysamli.space](www.umaykuzeysamli.space))
 
 - [x] **Frontend Architecture:** React implementation of Dashboard, Diamond View, and Task Trees.
 - [ ] **Database Schema:** PostgreSQL ERD design (Recursive Tasks, Entity Relations).
@@ -90,6 +90,7 @@ _Installation instructions and Docker Compose configurations are coming soon._
 
 Current Version: **v1.0**
 This system follows Semantic Versioning. Future updates will introduce advanced features such as Entity Interaction Mapping and Automated CWA Triggers.
+
 
 
 
