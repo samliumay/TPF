@@ -1,5 +1,3 @@
-<img width="1899" height="871" alt="image" src="https://github.com/user-attachments/assets/46b899b2-c5bc-4c38-8220-21cfa6608313" /># TPF (Tactical Planning Framework) v1.0 (for light version check [umaykuzeysamli.space](https://www.umaykuzeysamli.space/))
-
 ![Status](https://img.shields.io/badge/Status-Under%20Construction-yellow)
 ![Version](https://img.shields.io/badge/Version-1.0-blue)
 ![License](https://img.shields.io/badge/License-MIT-green)
@@ -92,6 +90,11 @@ Current Version: **v1.0**
 This system follows Semantic Versioning. Future updates will introduce advanced features such as Entity Interaction Mapping and Automated CWA Triggers.
 
 
+
+<img width="524" height="825" alt="1" src="https://github.com/user-attachments/assets/d25c7eb0-d689-4659-a21c-36c7229d00fa" />
+<img width="1899" height="871" alt="4" src="https://github.com/user-attachments/assets/2dd13e00-26d9-4a5f-b131-f5fe548289ff" />
+<img width="1603" height="694" alt="3" src="https://github.com/user-attachments/assets/1c3b11c2-0de3-485b-bad8-2323552d1caa" />
+<img width="510" height="762" alt="2" src="https://github.com/user-attachments/assets/2a342c9f-f380-446f-98b5-0f7606730bd6" />
 
 
 
