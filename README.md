@@ -1,4 +1,4 @@
-# TPF (Tactical Planning Framework) v1.0 (for light version check [umaykuzeysamli.space](https://www.umaykuzeysamli.space/))
+<img width="1899" height="871" alt="image" src="https://github.com/user-attachments/assets/46b899b2-c5bc-4c38-8220-21cfa6608313" /># TPF (Tactical Planning Framework) v1.0 (for light version check [umaykuzeysamli.space](https://www.umaykuzeysamli.space/))
 
 ![Status](https://img.shields.io/badge/Status-Under%20Construction-yellow)
 ![Version](https://img.shields.io/badge/Version-1.0-blue)
@@ -60,7 +60,7 @@ The project utilizes a feature-based architecture with a focus on data integrity
 * **Caching:** Redis (Planned for RP calculation optimization)
 * **Infrastructure:** Docker (Containerization)
 
-## Tech Stack - Light ( umaykuzeysamli.space )
+## Tech Stack - Light ( [umaykuzeysamli.space](https://www.umaykuzeysamli.space/) )
 
 - Next.js 16
 - TypeScript
@@ -90,6 +90,7 @@ _Installation instructions and Docker Compose configurations are coming soon._
 
 Current Version: **v1.0**
 This system follows Semantic Versioning. Future updates will introduce advanced features such as Entity Interaction Mapping and Automated CWA Triggers.
+
 
 
 
