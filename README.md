@@ -6,6 +6,9 @@ Goal is to develop a system for an Tactical Planing Framework. When we mean 'tac
 
 General framework created but to create an enviorment, I need to define the system in more detail. Currently up-to-date version is 1.0
 
+# Creator 
+
+- [umaysamli](https://www.umaysamli.com/)
 
 
 
